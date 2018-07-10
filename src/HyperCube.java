@@ -9,7 +9,7 @@ public class HyperCube {
 	static PrintWriter writer = null;
 	public static void main(String[] args) {
 		Cube c = new Cube();		
-		try {//считывание исходных данных
+		try {//СЃС‡РёС‚С‹РІР°РЅРёРµ РёСЃС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
 			scanner = new Scanner(new BufferedReader(new FileReader(INPUT_FILE)));
 			for(int i=0;i<Cube.X;i++){				
 				for(int j=0;j<Cube.Y;j++){					
@@ -26,50 +26,50 @@ public class HyperCube {
 				scanner.close();
 			}
 		}
-		pr("Исходный куб");
+		pr("РСЃС…РѕРґРЅС‹Р№ РєСѓР±");
 		c.showCube();
 		
-		//Алфавит вращений
-		T[] abc = new T[]{T.R,T.R_,T.L,T.L_,T.F,T.F_,T.B,T.B_,T.U,T.U_,T.D,T.D_};//Допустимые вращения
-		//Комбинации для желтого креста
-		T[] comb1 = new T[]{T.F,T.U,T.R,T.U_,T.R_,T.F_};//"уголок"
-		T[] comb2 = new T[]{T.F,T.R,T.U,T.R_,T.U_,T.F_};//"палка"				
-		//Комбинации для желтой шапки
-		T[] comb3 = new T[]{T.R,T.R,T.D,T.R_,T.U,T.U,T.R,T.D_,T.R_,T.U,T.U,T.R_};//"глаза"
-		T[] comb4 = new T[]{T.R_,T.F_,T.L,T.F,T.R,T.F_,T.L_,T.F};//"уши"
-		T[] comb5 = new T[]{T.R_,T.F_,T.L_,T.F,T.R,T.F_,T.L,T.F};//"кривые уши"
+		//РђР»С„Р°РІРёС‚ РІСЂР°С‰РµРЅРёР№
+		T[] abc = new T[]{T.R,T.R_,T.L,T.L_,T.F,T.F_,T.B,T.B_,T.U,T.U_,T.D,T.D_};//Р”РѕРїСѓСЃС‚РёРјС‹Рµ РІСЂР°С‰РµРЅРёСЏ
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ Р¶РµР»С‚РѕРіРѕ РєСЂРµСЃС‚Р°
+		T[] comb1 = new T[]{T.F,T.U,T.R,T.U_,T.R_,T.F_};//"СѓРіРѕР»РѕРє"
+		T[] comb2 = new T[]{T.F,T.R,T.U,T.R_,T.U_,T.F_};//"РїР°Р»РєР°"				
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ Р¶РµР»С‚РѕР№ С€Р°РїРєРё
+		T[] comb3 = new T[]{T.R,T.R,T.D,T.R_,T.U,T.U,T.R,T.D_,T.R_,T.U,T.U,T.R_};//"РіР»Р°Р·Р°"
+		T[] comb4 = new T[]{T.R_,T.F_,T.L,T.F,T.R,T.F_,T.L_,T.F};//"СѓС€Рё"
+		T[] comb5 = new T[]{T.R_,T.F_,T.L_,T.F,T.R,T.F_,T.L,T.F};//"РєСЂРёРІС‹Рµ СѓС€Рё"
 		T[] comb6 = new T[]{T.R,T.U,T.R_,T.U,T.R,T.U,T.U,T.R_};//"L"
-		T[] comb7 = new T[]{T.R,T.U,T.U,T.R_,T.U_,T.R,T.U_,T.R_};//"приставка"
-		T[] comb8 = new T[]{T.R,T.U,T.U,T.R,T.R,T.U_,T.R,T.R,T.U_,T.R,T.R,T.U,T.U,T.R};//"вертолет"
-		T[] comb9 = new T[]{T.F, T.R,T.U,T.R_,T.U_, T.R,T.U,T.R_,T.U_, T.R,T.U,T.R_,T.U_, T.F_};//без названия
+		T[] comb7 = new T[]{T.R,T.U,T.U,T.R_,T.U_,T.R,T.U_,T.R_};//"РїСЂРёСЃС‚Р°РІРєР°"
+		T[] comb8 = new T[]{T.R,T.U,T.U,T.R,T.R,T.U_,T.R,T.R,T.U_,T.R,T.R,T.U,T.U,T.R};//"РІРµСЂС‚РѕР»РµС‚"
+		T[] comb9 = new T[]{T.F, T.R,T.U,T.R_,T.U_, T.R,T.U,T.R_,T.U_, T.R,T.U,T.R_,T.U_, T.F_};//Р±РµР· РЅР°Р·РІР°РЅРёСЏ
 		
-		//Комбинации для расстановки угловых кубиков на последнем слое
-		T[] comb10 = new T[]{T.R,T.U,T.U,T.R_,T.U_,T.R,T.U,T.U,T.L_,T.U,T.R_,T.U_,T.L};//боковой
-		T[] comb11 = new T[]{T.L_,T.U,T.R,T.U_,T.L,T.U,T.L_,T.U,T.R_,T.U_,T.L,T.U,T.U,T.R,T.U,T.U,T.R_};//диагональный
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ СЂР°СЃСЃС‚Р°РЅРѕРІРєРё СѓРіР»РѕРІС‹С… РєСѓР±РёРєРѕРІ РЅР° РїРѕСЃР»РµРґРЅРµРј СЃР»РѕРµ
+		T[] comb10 = new T[]{T.R,T.U,T.U,T.R_,T.U_,T.R,T.U,T.U,T.L_,T.U,T.R_,T.U_,T.L};//Р±РѕРєРѕРІРѕР№
+		T[] comb11 = new T[]{T.L_,T.U,T.R,T.U_,T.L,T.U,T.L_,T.U,T.R_,T.U_,T.L,T.U,T.U,T.R,T.U,T.U,T.R_};//РґРёР°РіРѕРЅР°Р»СЊРЅС‹Р№
 		
-		//Комбинации для расстановки боковых кубиков на последнем слое
-		T[] comb12 = new T[]{T.R,T.R,T.U,T.R,T.U,T.R_,T.U_,T.R_,T.U_,T.R_,T.U,T.R_};//Смещение боковых кубиков по треугольнику (по часовой)
-		T[] comb13 = new T[]{T.R,T.U_,T.R,T.U,T.R,T.U,T.R,T.U_,T.R_,T.U_,T.R,T.R};//смещение боковых кубиков по треугольнику (против часовой)
-		T[] comb14 = new T[]{T.R,T.B_,T.R_,T.B,T.F,T.R_,T.B_,T.F,T.R_,T.B,T.R,T.F,T.F,T.U};//"двойная диагональ"
-		T[] comb15 = new T[]{T.R,T.R,T.L,T.L,T.D,T.R,T.R,T.L,T.L,T.U,T.U,T.R,T.R,T.L,T.L,T.D,T.R,T.R,T.L,T.L};//меняем местами четыре боковых элемента крест-накрест
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ СЂР°СЃСЃС‚Р°РЅРѕРІРєРё Р±РѕРєРѕРІС‹С… РєСѓР±РёРєРѕРІ РЅР° РїРѕСЃР»РµРґРЅРµРј СЃР»РѕРµ
+		T[] comb12 = new T[]{T.R,T.R,T.U,T.R,T.U,T.R_,T.U_,T.R_,T.U_,T.R_,T.U,T.R_};//РЎРјРµС‰РµРЅРёРµ Р±РѕРєРѕРІС‹С… РєСѓР±РёРєРѕРІ РїРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєСѓ (РїРѕ С‡Р°СЃРѕРІРѕР№)
+		T[] comb13 = new T[]{T.R,T.U_,T.R,T.U,T.R,T.U,T.R,T.U_,T.R_,T.U_,T.R,T.R};//СЃРјРµС‰РµРЅРёРµ Р±РѕРєРѕРІС‹С… РєСѓР±РёРєРѕРІ РїРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєСѓ (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
+		T[] comb14 = new T[]{T.R,T.B_,T.R_,T.B,T.F,T.R_,T.B_,T.F,T.R_,T.B,T.R,T.F,T.F,T.U};//"РґРІРѕР№РЅР°СЏ РґРёР°РіРѕРЅР°Р»СЊ"
+		T[] comb15 = new T[]{T.R,T.R,T.L,T.L,T.D,T.R,T.R,T.L,T.L,T.U,T.U,T.R,T.R,T.L,T.L,T.D,T.R,T.R,T.L,T.L};//РјРµРЅСЏРµРј РјРµСЃС‚Р°РјРё С‡РµС‚С‹СЂРµ Р±РѕРєРѕРІС‹С… СЌР»РµРјРµРЅС‚Р° РєСЂРµСЃС‚-РЅР°РєСЂРµСЃС‚
 		
-		//Комбинации для "правильного" белого креста
-		T[] comb16 = new T[]{T.R,T.D,T.R_,T.D_,T.R};//меняем два смежных элемента креста
-		T[] comb17 = new T[]{T.R_,T.L,T.D,T.D,T.R,T.L_};//меняем два противоположных элемента креста
-		//Комбинации для белой шапки
-		T[] comb18 = new T[]{T.R,T.U,T.R_};//белый цвет расположен справа
-		T[] comb19 = new T[]{T.F_,T.U_,T.F};//белый цвет расположен лицом к нам
-		T[] comb20 = new T[]{T.R,T.F,T.R,T.R,T.F_,T.R_};//белый находится сверху
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ "РїСЂР°РІРёР»СЊРЅРѕРіРѕ" Р±РµР»РѕРіРѕ РєСЂРµСЃС‚Р°
+		T[] comb16 = new T[]{T.R,T.D,T.R_,T.D_,T.R};//РјРµРЅСЏРµРј РґРІР° СЃРјРµР¶РЅС‹С… СЌР»РµРјРµРЅС‚Р° РєСЂРµСЃС‚Р°
+		T[] comb17 = new T[]{T.R_,T.L,T.D,T.D,T.R,T.L_};//РјРµРЅСЏРµРј РґРІР° РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅС‹С… СЌР»РµРјРµРЅС‚Р° РєСЂРµСЃС‚Р°
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ Р±РµР»РѕР№ С€Р°РїРєРё
+		T[] comb18 = new T[]{T.R,T.U,T.R_};//Р±РµР»С‹Р№ С†РІРµС‚ СЂР°СЃРїРѕР»РѕР¶РµРЅ СЃРїСЂР°РІР°
+		T[] comb19 = new T[]{T.F_,T.U_,T.F};//Р±РµР»С‹Р№ С†РІРµС‚ СЂР°СЃРїРѕР»РѕР¶РµРЅ Р»РёС†РѕРј Рє РЅР°Рј
+		T[] comb20 = new T[]{T.R,T.F,T.R,T.R,T.F_,T.R_};//Р±РµР»С‹Р№ РЅР°С…РѕРґРёС‚СЃСЏ СЃРІРµСЂС…Сѓ
 		
-		//Комбинации для второго слоя
-		T[] comb21 = new T[]{T.U, T.R,T.U,T.R_,T.U_, T.F_,T.U_,T.F};//элемент расположен слева от своего места
-		T[] comb22 = new T[]{T.U_, T.F_,T.U_,T.F,T.U, T.R,T.U,T.R_};//элемент расположен справа от своего места
+		//РљРѕРјР±РёРЅР°С†РёРё РґР»СЏ РІС‚РѕСЂРѕРіРѕ СЃР»РѕСЏ
+		T[] comb21 = new T[]{T.U, T.R,T.U,T.R_,T.U_, T.F_,T.U_,T.F};//СЌР»РµРјРµРЅС‚ СЂР°СЃРїРѕР»РѕР¶РµРЅ СЃР»РµРІР° РѕС‚ СЃРІРѕРµРіРѕ РјРµСЃС‚Р°
+		T[] comb22 = new T[]{T.U_, T.F_,T.U_,T.F,T.U, T.R,T.U,T.R_};//СЌР»РµРјРµРЅС‚ СЂР°СЃРїРѕР»РѕР¶РµРЅ СЃРїСЂР°РІР° РѕС‚ СЃРІРѕРµРіРѕ РјРµСЃС‚Р°
 		
 		boolean complete = false;
 		while(true){
-			//Проверка на завершенность сборки			
+			//РџСЂРѕРІРµСЂРєР° РЅР° Р·Р°РІРµСЂС€РµРЅРЅРѕСЃС‚СЊ СЃР±РѕСЂРєРё			
 			if(c.checkComplete()){				
-				System.out.println("Кубик собран!");
+				System.out.println("РљСѓР±РёРє СЃРѕР±СЂР°РЅ!");
 				complete = true;
 				break;
 			}
@@ -92,9 +92,9 @@ public class HyperCube {
 				}
 			}else if(c.checkYellowHat()){
 				T[][] combs = {comb10,comb11};
-				//Постепенно проворачиваем верхную грань
+				//РџРѕСЃС‚РµРїРµРЅРЅРѕ РїСЂРѕРІРѕСЂР°С‡РёРІР°РµРј РІРµСЂС…РЅСѓСЋ РіСЂР°РЅСЊ
 				for(int shift=0;shift<=3;shift++){
-					//pr("Вращаем желтую верхушку " + shift);
+					//pr("Р’СЂР°С‰Р°РµРј Р¶РµР»С‚СѓСЋ РІРµСЂС…СѓС€РєСѓ " + shift);
 					boolean find = false;
 					if(shift!=0){
 						T[] comb = new T[]{T.U};
@@ -108,7 +108,7 @@ public class HyperCube {
 							Cube tmpCube = new Cube(c);
 							tmpCube.combo(comb);
 							if(tmpCube.checkAngularOnPlaces()){
-								pr("К желтой шапке");
+								pr("Рљ Р¶РµР»С‚РѕР№ С€Р°РїРєРµ");
 								pr(Cube.getText(comb));
 								c.commitCombo(comb);
 								find = true;
@@ -176,12 +176,12 @@ public class HyperCube {
 				}
 			}else if(c.checkFirstLayerComplete()){
 				pr("checkFirstLayerComplete()");				
-				//pr("Оценка верхушки = " + c.getRateUpperLateral());
-				//pr("Оценка центра = " + c.getRateCentralAngular());
+				//pr("РћС†РµРЅРєР° РІРµСЂС…СѓС€РєРё = " + c.getRateUpperLateral());
+				//pr("РћС†РµРЅРєР° С†РµРЅС‚СЂР° = " + c.getRateCentralAngular());
 				int rate = c.getRateCentralAngular();
 				while(rate != 4){
 					if(c.getRateUpperLateral() > 0){
-						//переносим кубик с верхнего слоя на центральный
+						//РїРµСЂРµРЅРѕСЃРёРј РєСѓР±РёРє СЃ РІРµСЂС…РЅРµРіРѕ СЃР»РѕСЏ РЅР° С†РµРЅС‚СЂР°Р»СЊРЅС‹Р№
 						T[][]combs1 = {new T[]{},new T[]{T.U},new T[]{T.U_},new T[]{T.U,T.U}};
 						T[][]combs2 = {comb21,comb22};
 						three:{
@@ -203,7 +203,7 @@ public class HyperCube {
 							}
 						}
 					}else{
-						//выводим некорректный кубик из центрального слоя в верхний						
+						//РІС‹РІРѕРґРёРј РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РєСѓР±РёРє РёР· С†РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ СЃР»РѕСЏ РІ РІРµСЂС…РЅРёР№						
 						for(int t=0;t<=3;t++){
 							T[] comb = Cube.transform(comb21, t);
 							Cube tmpCube = new Cube(c);
@@ -221,7 +221,7 @@ public class HyperCube {
 				int rate = c.getRateLowerAngular();
 				while(rate != 4){					
 					if(c.getRateUpperAngular() > 0){												
-						//переносим угловой кубик из верхнего слоя в нижний
+						//РїРµСЂРµРЅРѕСЃРёРј СѓРіР»РѕРІРѕР№ РєСѓР±РёРє РёР· РІРµСЂС…РЅРµРіРѕ СЃР»РѕСЏ РІ РЅРёР¶РЅРёР№
 						T[][]combs1 = {new T[]{},new T[]{T.U},new T[]{T.U_},new T[]{T.U,T.U}};
 						T[][]combs2 = {comb18,comb19,comb20};
 						three:{
@@ -243,7 +243,7 @@ public class HyperCube {
 							}
 						}
 					}else{						
-						//выводим некорректный кубик из нижнего слоя в верхний						
+						//РІС‹РІРѕРґРёРј РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РєСѓР±РёРє РёР· РЅРёР¶РЅРµРіРѕ СЃР»РѕСЏ РІ РІРµСЂС…РЅРёР№						
 						for(int t=0;t<=3;t++){
 							T[] comb = Cube.transform(comb18, t);
 							Cube tmpCube = new Cube(c);
@@ -276,24 +276,24 @@ public class HyperCube {
 						}
 					}
 				}				
-			}else{//строим простой крест
+			}else{//СЃС‚СЂРѕРёРј РїСЂРѕСЃС‚РѕР№ РєСЂРµСЃС‚
 				pr("This is random cube");				
-				//Начальная оценка, которую будем улучшать
+				//РќР°С‡Р°Р»СЊРЅР°СЏ РѕС†РµРЅРєР°, РєРѕС‚РѕСЂСѓСЋ Р±СѓРґРµРј СѓР»СѓС‡С€Р°С‚СЊ
 				int rate = c.getRateSimpleCross();
 				int initRate = rate;
 				for(int i=0;i<4-initRate;i++){
 					pr("cycle " + i);
-					boolean find = false;//Найдено ли улучшение состояния
+					boolean find = false;//РќР°Р№РґРµРЅРѕ Р»Рё СѓР»СѓС‡С€РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 					Cube tmpCube;
 					T[] comb;
 					int curRate;
-					//улучшение позиции за один ход
+					//СѓР»СѓС‡С€РµРЅРёРµ РїРѕР·РёС†РёРё Р·Р° РѕРґРёРЅ С…РѕРґ
 					for(T t1:abc){			
 						tmpCube = new Cube(c);
 						comb = new T[]{t1};
 						tmpCube.combo(comb);
 						curRate = tmpCube.getRateSimpleCross();						
-						if(curRate > rate){//улучшение							
+						if(curRate > rate){//СѓР»СѓС‡С€РµРЅРёРµ							
 							pr("1: " + Cube.getText(comb));
 							c.commitCombo(comb);
 							rate = curRate;
@@ -302,7 +302,7 @@ public class HyperCube {
 						}
 					}
 					if(!find){					
-						//улучшение позиции за два хода
+						//СѓР»СѓС‡С€РµРЅРёРµ РїРѕР·РёС†РёРё Р·Р° РґРІР° С…РѕРґР°
 						two:{
 							for(T t1:abc){							
 								for(T t2:abc){
@@ -310,7 +310,7 @@ public class HyperCube {
 									comb = new T[]{t1,t2};
 									tmpCube.combo(comb);
 									curRate = tmpCube.getRateSimpleCross();
-									if(curRate > rate){//улучшение
+									if(curRate > rate){//СѓР»СѓС‡С€РµРЅРёРµ
 										pr("2: "+ Cube.getText(comb));
 										c.commitCombo(comb);
 										rate = curRate;
@@ -322,7 +322,7 @@ public class HyperCube {
 						}
 					}
 					if(!find){					
-						//улучшение позиции за три хода
+						//СѓР»СѓС‡С€РµРЅРёРµ РїРѕР·РёС†РёРё Р·Р° С‚СЂРё С…РѕРґР°
 						three:{
 							for(T t1:abc){
 								for(T t2:abc){
@@ -331,7 +331,7 @@ public class HyperCube {
 										comb = new T[]{t1,t2,t3};
 										tmpCube.combo(comb);
 										curRate = tmpCube.getRateSimpleCross();
-										if(curRate > rate){//улучшение
+										if(curRate > rate){//СѓР»СѓС‡С€РµРЅРёРµ
 											pr("3: " + Cube.getText(comb));
 											c.commitCombo(comb);
 											rate = curRate;
@@ -347,16 +347,16 @@ public class HyperCube {
 			}
 			
 			
-			break;//Заглушка
+			break;//Р—Р°РіР»СѓС€РєР°
 		}
 		if(complete){
-			System.out.println("\tКубик полностью собран");
+			System.out.println("\tРљСѓР±РёРє РїРѕР»РЅРѕСЃС‚СЊСЋ СЃРѕР±СЂР°РЅ");
 		}else{
-			System.out.println("КУБИК НЕ СОБРАН)))))");
+			System.out.println("РљРЈР‘РРљ РќР• РЎРћР‘Р РђРќ)))))");
 		}
 		
 		/*
-		try {//Вывод решения задачи
+		try {//Р’С‹РІРѕРґ СЂРµС€РµРЅРёСЏ Р·Р°РґР°С‡Рё
 			writer = new PrintWriter(new FileWriter(OUTPUT_FILE));
 			for(int i=0;i<Cube.X;i++){
 				for(int j=0;j<Cube.Y;j++){
@@ -375,7 +375,7 @@ public class HyperCube {
 			}
 		}
 		*/
-		pr("ФИНАЛЬНАЯ КОМБИНАЦИЯ:");		
+		pr("Р¤РРќРђР›Р¬РќРђРЇ РљРћРњР‘РРќРђР¦РРЇ:");		
 		pr(Cube.getText(Result.finalComb).trim());
 		pr("EOF");
 	}
@@ -388,7 +388,7 @@ public class HyperCube {
 }
 class Result{
 	static T[] finalComb = {};
-	//Объединение алгоритмов в общую серию
+	//РћР±СЉРµРґРёРЅРµРЅРёРµ Р°Р»РіРѕСЂРёС‚РјРѕРІ РІ РѕР±С‰СѓСЋ СЃРµСЂРёСЋ
 	static void addCobmo(T[] combo){
 		int len1 = finalComb.length;
 		int len2 = combo.length;		
@@ -425,23 +425,23 @@ class Result{
 	}
 }
 class Cube{
-	// 1 - W - белая сторона	
-	// 2 - O - оранжевая сторона	
-	// 3 - B - синяя сторона	
-	// 4 - R - красная сторона	
-	// 5 - G - зеленая сторона	
-	// 6 - Y - желтая сторона
-	static final int X=6;//Кол-во сторон
-	static final int Y=9;//Кол-во кубиков на одной стороне
+	// 1 - W - Р±РµР»Р°СЏ СЃС‚РѕСЂРѕРЅР°	
+	// 2 - O - РѕСЂР°РЅР¶РµРІР°СЏ СЃС‚РѕСЂРѕРЅР°	
+	// 3 - B - СЃРёРЅСЏСЏ СЃС‚РѕСЂРѕРЅР°	
+	// 4 - R - РєСЂР°СЃРЅР°СЏ СЃС‚РѕСЂРѕРЅР°	
+	// 5 - G - Р·РµР»РµРЅР°СЏ СЃС‚РѕСЂРѕРЅР°	
+	// 6 - Y - Р¶РµР»С‚Р°СЏ СЃС‚РѕСЂРѕРЅР°
+	static final int X=6;//РљРѕР»-РІРѕ СЃС‚РѕСЂРѕРЅ
+	static final int Y=9;//РљРѕР»-РІРѕ РєСѓР±РёРєРѕРІ РЅР° РѕРґРЅРѕР№ СЃС‚РѕСЂРѕРЅРµ
 	//static T[] finalComb = new T[0];	
 	
 	String[][]a = new String[X][Y];
 	
-	//Конструктор по умолчанию
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	Cube(){
 		
 	}
-	//Конструктор
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	Cube(Cube source){
 		for(int i=0;i<X;i++){
 			for(int j=0;j<Y;j++){
@@ -449,7 +449,7 @@ class Cube{
 			}
 		}
 	}
-	//Показать кубик
+	//РџРѕРєР°Р·Р°С‚СЊ РєСѓР±РёРє
 	void showCube(){
 		String text="";
 		for(int i=0;i<X;i++){
@@ -460,7 +460,7 @@ class Cube{
 		}
 		System.out.println(text);
 	}
-	//Проверка на завершенность сборки
+	//РџСЂРѕРІРµСЂРєР° РЅР° Р·Р°РІРµСЂС€РµРЅРЅРѕСЃС‚СЊ СЃР±РѕСЂРєРё
 	boolean checkComplete(){
 		//System.out.print("checkComplete()");
 		boolean check = true;
@@ -474,13 +474,13 @@ class Cube{
 		//System.out.println(" := " + check);
 		return check;
 	}
-	//Проверка - боковые по местам (последний шаг)
+	//РџСЂРѕРІРµСЂРєР° - Р±РѕРєРѕРІС‹Рµ РїРѕ РјРµСЃС‚Р°Рј (РїРѕСЃР»РµРґРЅРёР№ С€Р°Рі)
 	//boolean checkLateralOnPlaces(){
 	//	boolean check = false;
 	//	return check;
 	//}
 	
-	//Проверка - угловые по местам (предпоследний шаг)
+	//РџСЂРѕРІРµСЂРєР° - СѓРіР»РѕРІС‹Рµ РїРѕ РјРµСЃС‚Р°Рј (РїСЂРµРґРїРѕСЃР»РµРґРЅРёР№ С€Р°Рі)
 	boolean checkAngularOnPlaces(){
 		//pr_("checkAngularOnPlaces()");
 		boolean check = true;
@@ -499,7 +499,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;		
 	}
-	//Проверка - желтая "шапка" на последней стороне
+	//РџСЂРѕРІРµСЂРєР° - Р¶РµР»С‚Р°СЏ "С€Р°РїРєР°" РЅР° РїРѕСЃР»РµРґРЅРµР№ СЃС‚РѕСЂРѕРЅРµ
 	boolean checkYellowHat(){
 		//pr_("checkYellowHat()");
 		boolean check = true;
@@ -515,7 +515,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - крест на последней стороне
+	//РџСЂРѕРІРµСЂРєР° - РєСЂРµСЃС‚ РЅР° РїРѕСЃР»РµРґРЅРµР№ СЃС‚РѕСЂРѕРЅРµ
 	boolean checkYellowCross(){
 		//pr_("checkYellowCross()");
 		boolean check = true;		
@@ -533,7 +533,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - завершена сборка двух слоев
+	//РџСЂРѕРІРµСЂРєР° - Р·Р°РІРµСЂС€РµРЅР° СЃР±РѕСЂРєР° РґРІСѓС… СЃР»РѕРµРІ
 	boolean checkTwoLayersComplete(){
 		//pr_("checkTwoLayersComplete()");
 		boolean check = true;
@@ -551,7 +551,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - завершен первый слой
+	//РџСЂРѕРІРµСЂРєР° - Р·Р°РІРµСЂС€РµРЅ РїРµСЂРІС‹Р№ СЃР»РѕР№
 	boolean checkFirstLayerComplete(){
 		//pr_("checkFirstLayerComplete()");
 		boolean check = true;
@@ -569,7 +569,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - белая "шапка" на начальной стороне
+	//РџСЂРѕРІРµСЂРєР° - Р±РµР»Р°СЏ "С€Р°РїРєР°" РЅР° РЅР°С‡Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅРµ
 	boolean checkWhiteHat(){
 		//pr_("checkWhiteHat()");
 		boolean check = true;
@@ -581,7 +581,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - белый крест на начальной стороне
+	//РџСЂРѕРІРµСЂРєР° - Р±РµР»С‹Р№ РєСЂРµСЃС‚ РЅР° РЅР°С‡Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅРµ
 	boolean checkSimpleCross(){
 		//pr_("checkSimpleCross()");
 		boolean check = true;
@@ -595,7 +595,7 @@ class Cube{
 		//pr(" := " + check);
 		return check;
 	}
-	//Проверка - "правильный" белый креста на начальной стороне
+	//РџСЂРѕРІРµСЂРєР° - "РїСЂР°РІРёР»СЊРЅС‹Р№" Р±РµР»С‹Р№ РєСЂРµСЃС‚Р° РЅР° РЅР°С‡Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅРµ
 	boolean checkWhiteCross(){
 		boolean check = true;
 		if(!checkSimpleCross()){
@@ -617,10 +617,10 @@ class Cube{
 	static void pr_(String message){
 		System.out.print(message);
 	}
-	//Вращение вправо (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІРїСЂР°РІРѕ (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateRight(){
 		//pr("rotateRight()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[5][0];
 		String swap2 = a[5][1];
 		String swap3 = a[5][2];
@@ -641,7 +641,7 @@ class Cube{
 		a[3][3] = swap2;
 		a[3][0] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[2][2];
 		swap2 = a[2][1];
 		
@@ -657,17 +657,17 @@ class Cube{
 		a[2][8] = swap1;
 		a[2][5] = swap2;
 	}
-	//Вращение вправо (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІРїСЂР°РІРѕ (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateRightInverse(){
 		//pr("rotateRightInverse()");
 		rotateRight();
 		rotateRight();
 		rotateRight();
 	}
-	//Вращение влево (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІР»РµРІРѕ (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateLeft(){
 		//pr("rotateLeft()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[1][0];
 		String swap2 = a[1][3];
 		String swap3 = a[1][6];
@@ -688,7 +688,7 @@ class Cube{
 		a[4][1] = swap2;
 		a[4][0] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[0][2];
 		swap2 = a[0][1];
 		
@@ -704,17 +704,17 @@ class Cube{
 		a[0][8] = swap1;
 		a[0][5] = swap2;
 	}
-	//Вращение влево (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІР»РµРІРѕ (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateLeftInverse(){
 		//pr("rotateLeftInverse()");
 		rotateLeft();
 		rotateLeft();
 		rotateLeft();
 	}
-	//Вращение фронтальной части (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ С‡Р°СЃС‚Рё (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateFront(){
 		//pr("rotateFront()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[5][8];
 		String swap2 = a[5][5];
 		String swap3 = a[5][2];
@@ -735,7 +735,7 @@ class Cube{
 		a[2][3] = swap2;
 		a[2][6] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[1][2];
 		swap2 = a[1][1];
 		
@@ -751,17 +751,17 @@ class Cube{
 		a[1][8] = swap1;
 		a[1][5] = swap2;		
 	}
-	//Вращение фронтальной части (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ С‡Р°СЃС‚Рё (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateFrontInverse(){
 		//pr("rotateFrontInverse()");
 		rotateFront();
 		rotateFront();
 		rotateFront();
 	}
-	//Вращение задней части (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ Р·Р°РґРЅРµР№ С‡Р°СЃС‚Рё (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateBack(){
 		//pr("rotateBack()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[5][6];
 		String swap2 = a[5][3];
 		String swap3 = a[5][0];
@@ -782,7 +782,7 @@ class Cube{
 		a[0][3] = swap2;
 		a[0][0] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[3][2];
 		swap2 = a[3][1];
 		
@@ -798,17 +798,17 @@ class Cube{
 		a[3][8] = swap1;
 		a[3][5] = swap2;		
 	}
-	//Вращение задней части (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ Р·Р°РґРЅРµР№ С‡Р°СЃС‚Рё (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateBackInverse(){
 		//pr("rotateBackInverse()");
 		rotateBack();
 		rotateBack();
 		rotateBack();	
 	}
-	//Вращение верхней части (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІРµСЂС…РЅРµР№ С‡Р°СЃС‚Рё (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateUpper(){
 		//pr("rotateUpper()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[1][0];
 		String swap2 = a[1][1];
 		String swap3 = a[1][2];
@@ -829,7 +829,7 @@ class Cube{
 		a[0][1] = swap2;
 		a[0][2] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[5][0];
 		swap2 = a[5][3];
 		
@@ -846,17 +846,17 @@ class Cube{
 		a[5][1] = swap2;		
 		
 	}
-	//Вращение верхней части (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РІРµСЂС…РЅРµР№ С‡Р°СЃС‚Рё (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateUpperInverse(){
 		//pr("rotateUpperInverse()");
 		rotateUpper();
 		rotateUpper();
 		rotateUpper();
 	}
-	//Вращение нижней части (по часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё (РїРѕ С‡Р°СЃРѕРІРѕР№)
 	void rotateLower(){
 		//pr("rotateLower()");
-		//Сдвиг кольца
+		//РЎРґРІРёРі РєРѕР»СЊС†Р°
 		String swap1 = a[1][6];
 		String swap2 = a[1][7];
 		String swap3 = a[1][8];
@@ -877,7 +877,7 @@ class Cube{
 		a[2][7] = swap2;
 		a[2][8] = swap3;
 		
-		//Сдвиг квадрата
+		//РЎРґРІРёРі РєРІР°РґСЂР°С‚Р°
 		swap1 = a[4][8];
 		swap2 = a[4][5];
 		
@@ -894,14 +894,14 @@ class Cube{
 		a[4][7] = swap2;		
 
 	}
-	//Вращение нижней части (против часовой)
+	//Р’СЂР°С‰РµРЅРёРµ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё (РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№)
 	void rotateLowerInverse(){
 		//pr("rotateLowerInverse()");
 		rotateLower();
 		rotateLower();
 		rotateLower();
 	}
-	//Применение комбинаций вращений к кубу
+	//РџСЂРёРјРµРЅРµРЅРёРµ РєРѕРјР±РёРЅР°С†РёР№ РІСЂР°С‰РµРЅРёР№ Рє РєСѓР±Сѓ
 	void combo(T[] arr){
 		int len = arr.length;		
 		for(int i=0;i<len;i++){			
@@ -923,29 +923,29 @@ class Cube{
 			}			
 		}
 	}
-	//Вывести алгоритм в текстовом виде
+	//Р’С‹РІРµСЃС‚Рё Р°Р»РіРѕСЂРёС‚Рј РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ
 	static String getText(T[] arr){
 		String ret = "";
 		int len = arr.length;		
 		for(int i=0;i<len;i++){			
 			switch(arr[i]){
-			case R:ret+=" П";break;
-			case R_:ret+=" П'";break;
-			case L:ret+=" Л";break;
-			case L_:ret+=" Л'";break;
-			case F:ret+=" Ф";break;
-			case F_:ret+=" Ф'";break;
-			case B:ret+=" З";break;
-			case B_:ret+=" З'";break;
-			case U:ret+=" В";break;
-			case U_:ret+=" В'";break;
-			case D:ret+=" Н";break;
-			case D_:ret+=" Н'";break;			
+			case R:ret+=" Рџ";break;
+			case R_:ret+=" Рџ'";break;
+			case L:ret+=" Р›";break;
+			case L_:ret+=" Р›'";break;
+			case F:ret+=" Р¤";break;
+			case F_:ret+=" Р¤'";break;
+			case B:ret+=" Р—";break;
+			case B_:ret+=" Р—'";break;
+			case U:ret+=" Р’";break;
+			case U_:ret+=" Р’'";break;
+			case D:ret+=" Рќ";break;
+			case D_:ret+=" Рќ'";break;			
 			}			
 		}
 		return ret;
 	}
-	//Трансформация алгоритма
+	//РўСЂР°РЅСЃС„РѕСЂРјР°С†РёСЏ Р°Р»РіРѕСЂРёС‚РјР°
 	static T[] transform(T[] arr,int transVal){
 		//pr("transform " + transVal);
 		int len = arr.length;
@@ -969,32 +969,32 @@ class Cube{
 		return ret;
 	}
 	
-	//Применить комбинацию к кубу
+	//РџСЂРёРјРµРЅРёС‚СЊ РєРѕРјР±РёРЅР°С†РёСЋ Рє РєСѓР±Сѓ
 	void commitCombo(T[] arr){
 		//pr("commitCombo()");
 		combo(arr);		
 		Result.addCobmo(arr);
 	}
-	//Вернуть оценку позиции верхних боковых кубиков
+	//Р’РµСЂРЅСѓС‚СЊ РѕС†РµРЅРєСѓ РїРѕР·РёС†РёРё РІРµСЂС…РЅРёС… Р±РѕРєРѕРІС‹С… РєСѓР±РёРєРѕРІ
 	int getRateUpperLateral(){
 		//pr("getRateUpperLateral()");
 		int ret = 0;
-		//Фронтальный кубик
+		//Р¤СЂРѕРЅС‚Р°Р»СЊРЅС‹Р№ РєСѓР±РёРє
 		if(!a[5][5].equals(a[5][4]) && !a[1][1].equals(a[5][4])){
 			//pr("FrontRate");
 			ret++;
 		}
-		//Правый кубик
+		//РџСЂР°РІС‹Р№ РєСѓР±РёРє
 		if(!a[5][1].equals(a[5][4]) && !a[2][1].equals(a[5][4])){
 			//pr("RightRate");
 			ret++;
 		}
-		//Задний кубик
+		//Р—Р°РґРЅРёР№ РєСѓР±РёРє
 		if(!a[5][3].equals(a[5][4]) && !a[3][1].equals(a[5][4])){
 			//pr("BackRate");
 			ret++;
 		}
-		//Левый кубик
+		//Р›РµРІС‹Р№ РєСѓР±РёРє
 		if(!a[5][7].equals(a[5][4]) && !a[0][1].equals(a[5][4])){
 			//pr("LeftRate");
 			ret++;
@@ -1002,85 +1002,85 @@ class Cube{
 		
 		return ret;
 	}
-	//Вернуть оценку позиции центральных угловых кубиков
+	//Р’РµСЂРЅСѓС‚СЊ РѕС†РµРЅРєСѓ РїРѕР·РёС†РёРё С†РµРЅС‚СЂР°Р»СЊРЅС‹С… СѓРіР»РѕРІС‹С… РєСѓР±РёРєРѕРІ
 	int getRateCentralAngular(){
 		//pr("getRateCentralAngular()");
 		int ret = 0;
-		//На пересечении фронтальной и правой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ Рё РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[1][5].equals(a[1][4]) && a[2][3].equals(a[2][4])){
 			//pr("Front-Right Rate");
 			ret++;
 		}
-		//На пересечении правой и задней стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё РїСЂР°РІРѕР№ Рё Р·Р°РґРЅРµР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[2][5].equals(a[2][4]) && a[3][3].equals(a[3][4])){
 			//pr("Right-Back Rate");
 			ret++;
 		}
-		//На пересечении задней и левой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р·Р°РґРЅРµР№ Рё Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[3][5].equals(a[3][4]) && a[0][3].equals(a[0][4])){
 			//pr("Back-Left Rate");
 			ret++;
 		}
-		//На пересечении левой и фронтальной стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р»РµРІРѕР№ Рё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[0][5].equals(a[0][4]) && a[1][3].equals(a[1][4])){
 			//pr("Left-Front Rate");
 			ret++;
 		}
 		return ret;
 	}
-	//Вернуть оценку позиции верхних угловых кубиков
+	//Р’РµСЂРЅСѓС‚СЊ РѕС†РµРЅРєСѓ РїРѕР·РёС†РёРё РІРµСЂС…РЅРёС… СѓРіР»РѕРІС‹С… РєСѓР±РёРєРѕРІ
 	int getRateUpperAngular(){
 		//pr("getRateUpperAngular()");
 		int ret = 0;
-		//На пересечении фронтальной и правой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ Рё РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[1][2].equals(a[4][4]) || a[2][0].equals(a[4][4]) || a[5][2].equals(a[4][4])){
 			//pr("Front-Right Rate");
 			ret++;
 		}
-		//На пересечении правой и задней стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё РїСЂР°РІРѕР№ Рё Р·Р°РґРЅРµР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[2][2].equals(a[4][4]) || a[3][0].equals(a[4][4]) || a[5][0].equals(a[4][4])){
 			//pr("Right-Back Rate");
 			ret++;
 		}
-		//На пересечении задней и левой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р·Р°РґРЅРµР№ Рё Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[3][2].equals(a[4][4]) || a[0][0].equals(a[4][4]) || a[5][6].equals(a[4][4])){
 			//pr("Back-Left Rate");
 			ret++;
 		}
-		//На пересечении левой и фронтальной стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р»РµРІРѕР№ Рё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[0][2].equals(a[4][4]) || a[1][0].equals(a[4][4]) || a[5][8].equals(a[4][4])){
 			//pr("Left-Front Rate");
 			ret++;
 		}
 		return ret;
 	}
-	//Вернуть оценку позиции нижних угловых кубиков
+	//Р’РµСЂРЅСѓС‚СЊ РѕС†РµРЅРєСѓ РїРѕР·РёС†РёРё РЅРёР¶РЅРёС… СѓРіР»РѕРІС‹С… РєСѓР±РёРєРѕРІ
 	int getRateLowerAngular(){
 		//pr("getRateLowerAngular()");
 		int ret = 0;
-		//На пересечении фронтальной и правой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ Рё РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[1][8].equals(a[1][4]) && a[2][6].equals(a[2][4])){
 			//pr("Front-Right Rate");
 			ret++;
 		}
-		//На пересечении правой и задней стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё РїСЂР°РІРѕР№ Рё Р·Р°РґРЅРµР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[2][8].equals(a[2][4]) && a[3][6].equals(a[3][4])){
 			//pr("Right-Back Rate");
 			ret++;
 		}
-		//На пересечении задней и левой стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р·Р°РґРЅРµР№ Рё Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[3][8].equals(a[3][4]) && a[0][6].equals(a[0][4])){
 			//pr("Back-Left Rate");
 			ret++;
 		}		
-		//На пересечении левой и фронтальной стороны
+		//РќР° РїРµСЂРµСЃРµС‡РµРЅРёРё Р»РµРІРѕР№ Рё С„СЂРѕРЅС‚Р°Р»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		if(a[0][8].equals(a[0][4]) && a[1][6].equals(a[1][4])){
 			//pr("Left-Front Rate");
 			ret++;
 		}
 		return ret;
 	}
-	//Вернуть оценку простого белого креста на нижней (начальной) стороне
+	//Р’РµСЂРЅСѓС‚СЊ РѕС†РµРЅРєСѓ РїСЂРѕСЃС‚РѕРіРѕ Р±РµР»РѕРіРѕ РєСЂРµСЃС‚Р° РЅР° РЅРёР¶РЅРµР№ (РЅР°С‡Р°Р»СЊРЅРѕР№) СЃС‚РѕСЂРѕРЅРµ
 	int getRateSimpleCross(){
 		//pr("getRateSimpleCross()");
 		int ret = 0;
